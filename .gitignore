@@ -1,0 +1,13 @@
+.DS_Store
+.vscode/
+__pycache__/
+__init__.py
+.python-version
+fasthound.code-workspace
+
+#env-config
+.env
+.venv
+env/
+venv/
+
