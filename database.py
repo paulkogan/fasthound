@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from config import cfg
 
+# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 URL = make_url(
     f"postgresql://{cfg.DB_USER}:{cfg.DB_PASSWORD}@{cfg.DB_HOST}:{cfg.DB_PORT}/{cfg.DB_DATABASE}"
 )

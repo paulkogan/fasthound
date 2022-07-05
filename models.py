@@ -1,22 +1,36 @@
-from uuid import UUID
-
-from pydantic import BaseModel
 from sqlalchemy import Column, DateTime, Text, Integer
-from sqlalchemy.dialects.postgresql import UUID as PostgresUUID
-from sqlalchemy.orm import Mapped, declarative_base
+
+# from sqlalchemy.dialects.postgresql import UUID as PostgresUUID
+from sqlalchemy.orm import declarative_base
 
 
-class Non200Response(BaseModel):
-    error: str
-
-
+# sqlAlchemy Classes
 base_cls = declarative_base()
+
+
+class EngSelect(base_cls):
+    __tablename__ = "energizers"
+
+    # id: Mapped[UUID] = Column(PostgresUUID(as_uuid=True), primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
+    first_name = Column(Text)
+    last_name = Column(Text)
+    occupation = Column(Text)
+    wiki_page = Column(Text)
+    born_state = Column(Text)
+    born_town = Column(Text)
+    home_state = Column(Text)
+    home_town = Column(Text)
+    current_town = Column(Text)
+    current_state = Column(Text)
 
 
 class Energizer(base_cls):
     __tablename__ = "energizers"
+    __table_args__ = {"extend_existing": True}
 
-    id: Mapped[UUID] = Column(PostgresUUID(as_uuid=True), primary_key=True)
+    # id: Mapped[UUID] = Column(PostgresUUID(as_uuid=True), primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     first_name = Column(Text)
     last_name = Column(Text)
     occupation = Column(Text)
