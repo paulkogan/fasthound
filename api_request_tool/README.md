@@ -1,25 +1,16 @@
 # Examples
 
-This directory contains a VS code based too that makes http requests against feature servers to more easily test rodeo endpoints in `beta`.
+This directory contains a VS code based too that makes http requests against feature servers to more easily test API endpoints. It works like CURL
 
 ## Installation
 
 The VS Code and the [Rest Client][rest-client] plugin are required to
 interactively execute requests.
 
-Additionally, `cloudflared` will need to be installed locally to authenticate
-against cloudflare and retrieve and access token.
+[rest-client][https://marketplace.visualstudio.com/items?itemname=humao.rest-client]
 
-```
-brew install cloudflared
-```
+Edit the `.env` file to configure which server and account are used. 
 
-Edit the `.env` file to configure which server and account are used. The
-cloudflare access token is also saved to this file.
-
-```
-$ cp .env.template .env
-```
 
 ## Usage
 
@@ -34,4 +25,4 @@ rerun after several minutes.
 After the auth script is run, you can use the .http file like normal. The
 config values in `.env` will be loaded as variables.
 
-[rest-client][https://marketplace.visualstudio.com/items?itemname=humao.rest-client]
+

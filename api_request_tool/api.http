@@ -7,9 +7,9 @@
 @password = {{$dotenv PASSWORD}}
 @patient_uuid = {{$dotenv PATIENT_UUID}}
 
-### auth - only needed if making calls to roman_api endpoints
+### auth - only needed if making calls to protected endpoints
 # @name login
-POST {{base_url}}/api/physician/auth/login
+POST {{base_url}}/api/protected/auth/login
 Content-Type: application/json
 Cf-Access-Token: {{$dotenv CF_ACCESS_TOKEN}}
 
@@ -45,22 +45,13 @@ Content-Type: application/json
 
 
 ### add a test message
-POST {{base_url}}/svc/non-ro-pharmacies/any/messages
+POST {{base_url}}/svc/any/messages
 Dev-Auth: fake
 Content-Type: application/json
 
 {
     "prescriber_id": "doc 99999",
-    "drug_id": "Drug-910",
     "status": "prescribed",
-    "prescriber_order_number": "Ro-Plan-444444"
 }
 
-
-
-### retrieve a test message
-GET {{base_url}}/svc/non-ro-pharmacies/any/messages/{{message_id}}
-Dev-Auth: fake
-Content-Type: application/json
-Cf-Access-Token: {{$dotenv CF_ACCESS_TOKEN}}
 
