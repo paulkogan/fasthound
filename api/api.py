@@ -7,7 +7,7 @@ from core import energizers
 
 from database import ENGINE, session_maker
 from models import EngSelect
-from core.schemas import EnergizerOut
+from core.schemas import EnergizerOut, EnergizerIn
 
 router = APIRouter()
 
@@ -16,9 +16,18 @@ def session_maker_factory() -> Callable[[], ContextManager[Session]]:
     return lambda: session_maker(bind=ENGINE)
 
 
-@router.get("/hello")
-async def hello_response():
-    return {"message": f"Hello API Fasthound 4 {cfg.DB_HOST}"}
+@router.post("/energizers")
+def create_energizer(
+    payload: EnergizerIn,
+    session_maker_instance: Callable[[], ContextManager[Session]] = Depends(
+        session_maker_factory
+    ),
+) -> EnergizerIn:
+    new_energizer = energizers.create_energizer(
+        payload, session_factory=session_maker_instance
+    )
+
+    return new_energizer
 
 
 @router.get("/parameters/{path_param}")
@@ -67,3 +76,8 @@ def list_energizers(
     raw_energizers = energizers.list_energizers(session_factory=session_maker_instance)
 
     return raw_energizers
+
+
+@router.get("/hello")
+async def hello_response():
+    return {"message": f"Hello API Fasthound 4 {cfg.DB_HOST}"}

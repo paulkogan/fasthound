@@ -21,37 +21,38 @@ Cf-Access-Token: {{$dotenv CF_ACCESS_TOKEN}}
 ###
 @key = {{login.response.body.token_data.key}}
 @path_param=Jerry
-@energizer_id=14
+@energizer_id=19
+
+
+### create energizer
+POST {{base_url}}/energizers
+Content-Type: application/json
+
+{
+  "first_name": "Newell",
+  "last_name": "Gollum",
+  "occupation": "lion"
+}
+
+### retrieve an ENERGIZER
+GET {{base_url}}/energizers/{{energizer_id}}
+Content-Type: application/json
+
+
+### list ENERGIZERS
+GET {{base_url}}/energizers
+Content-Type: application/json
+
+
+
+
+
+
+
+
+
 
 ### show PARAMS
 GET {{base_url}}/parameters/{{path_param}}/?multi=5
 snake-header: 'snake_header_value'
 Content-Type: application/json
-
-
-
-### list ENERGIZERS
-GET {{base_url}}/energizers
-Dev-Auth: fake
-Content-Type: application/json
-
-
-
-### retrieve an ENERGIZER
-GET {{base_url}}/energizers/{{energizer_id}}
-Dev-Auth: fake
-Content-Type: application/json
-
-
-
-### add a test message
-POST {{base_url}}/svc/any/messages
-Dev-Auth: fake
-Content-Type: application/json
-
-{
-    "prescriber_id": "doc 99999",
-    "status": "prescribed",
-}
-
-

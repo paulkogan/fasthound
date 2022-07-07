@@ -25,6 +25,16 @@ class EngSelect(base_cls):
     current_state = Column(Text)
 
 
+class EngCreateInitial(base_cls):
+    __tablename__ = "energizers"
+    __table_args__ = {"extend_existing": True}
+
+    first_name = Column(Text)
+    last_name = Column(Text)
+    occupation = Column(Text)
+    wiki_page = Column(Text)
+
+
 class Energizer(base_cls):
     __tablename__ = "energizers"
     __table_args__ = {"extend_existing": True}
