@@ -1,0 +1,58 @@
+#
+# Prerequisites:
+#    $ brew install cloudflared
+
+@base_url = {{$dotenv BASE_URL}}
+@username = {{$dotenv USERNAME}}
+@password = {{$dotenv PASSWORD}}
+@patient_uuid = {{$dotenv PATIENT_UUID}}
+
+### auth - only needed if making calls to protected endpoints
+# @name login
+POST {{base_url}}/api/protected/auth/login
+Content-Type: application/json
+Cf-Access-Token: {{$dotenv CF_ACCESS_TOKEN}}
+
+{
+    "email": "{{username}}",
+    "password": "{{password}}"
+}
+
+###
+@key = {{login.response.body.token_data.key}}
+@path_param=Jerry
+@energizer_id=19
+
+
+### create energizer
+POST {{base_url}}/energizers
+Content-Type: application/json
+
+{
+  "first_name": "Newell",
+  "last_name": "Gollum",
+  "occupation": "lion"
+}
+
+### retrieve an ENERGIZER
+GET {{base_url}}/energizers/{{energizer_id}}
+Content-Type: application/json
+
+
+### list ENERGIZERS
+GET {{base_url}}/energizers
+Content-Type: application/json
+
+
+
+
+
+
+
+
+
+
+### show PARAMS
+GET {{base_url}}/parameters/{{path_param}}/?multi=5
+snake-header: 'snake_header_value'
+Content-Type: application/json
