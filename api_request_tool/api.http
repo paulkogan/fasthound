@@ -20,7 +20,6 @@ Cf-Access-Token: {{$dotenv CF_ACCESS_TOKEN}}
 
 ###
 @key = {{login.response.body.token_data.key}}
-@path_param=Jerry
 @energizer_id=19
 
 
@@ -50,6 +49,7 @@ Content-Type: application/json
 
 
 
+@path_param=Jerry
 
 
 ### show PARAMS

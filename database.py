@@ -3,7 +3,7 @@ from typing import Generator, Union
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection, Engine, make_url
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session  # sessionmaker
 
 from config import cfg
 
