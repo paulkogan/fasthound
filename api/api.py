@@ -7,7 +7,7 @@ from core import energizers
 
 from database import ENGINE, session_maker
 from models import EngSelect
-from core.schemas import EnergizerOut, EnergizerIn
+from core.schemas import EnergizerResponse, EnergizerRequest
 
 router = APIRouter()
 
@@ -18,11 +18,11 @@ def session_maker_factory() -> Callable[[], ContextManager[Session]]:
 
 @router.post("/energizers")
 def create_energizer(
-    payload: EnergizerIn,
+    payload: EnergizerRequest,
     session_maker_instance: Callable[[], ContextManager[Session]] = Depends(
         session_maker_factory
     ),
-) -> EnergizerIn:
+) -> EnergizerRequest:
     new_energizer = energizers.create_energizer(
         payload, session_factory=session_maker_instance
     )
@@ -48,14 +48,16 @@ def show_parameters(
 
 
 @router.get(
-    "/energizers/{energizer_id}", response_model=EnergizerOut, status_code=HTTP_200_OK
+    "/energizers/{energizer_id}",
+    response_model=EnergizerResponse,
+    status_code=HTTP_200_OK,
 )  # noqa: E501
 async def retrieve_energizer(
     energizer_id: int,
     session_maker_instance: Callable[[], ContextManager[Session]] = Depends(
         session_maker_factory
     ),
-) -> EnergizerOut:
+) -> EnergizerResponse:
     raw_energizer = energizers.retrieve_energizer(
         energizer_id, session_factory=session_maker_instance
     )
@@ -67,7 +69,9 @@ async def retrieve_energizer(
     return raw_energizer
 
 
-@router.get("/energizers", response_model=List[EnergizerOut], status_code=HTTP_200_OK)
+@router.get(
+    "/energizers", response_model=List[EnergizerResponse], status_code=HTTP_200_OK
+)
 def list_energizers(
     session_maker_instance: Callable[[], ContextManager[Session]] = Depends(
         session_maker_factory

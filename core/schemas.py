@@ -6,7 +6,7 @@ class Non200Response(BaseModel):
     error: str
 
 
-class EnergizerIn(BaseModel):
+class EnergizerRequest(BaseModel):
     first_name: str
     last_name: str
     occupation: str
@@ -16,7 +16,7 @@ class EnergizerIn(BaseModel):
         orm_mode = True
 
 
-class EnergizerOut(BaseModel):
+class EnergizerResponse(BaseModel):
     id: int
     first_name: Union[str, None]
     last_name: Union[str, None]

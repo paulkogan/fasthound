@@ -3,12 +3,12 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
 from models import EngSelect, EngCreateInitial
-from core.schemas import EnergizerIn
+from core.schemas import EnergizerRequest
 
 
 def create_energizer(
-    payload: EnergizerIn, session_factory: Callable[[], ContextManager[Session]]
-) -> EnergizerIn:
+    payload: EnergizerRequest, session_factory: Callable[[], ContextManager[Session]]
+) -> EnergizerRequest:
     payload.wiki_page = (
         "https://en.wikipedia.org/wiki/" + payload.first_name + "_" + payload.last_name
     )
