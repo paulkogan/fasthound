@@ -23,7 +23,7 @@ Factory = Callable[[], T]
 def api_client() -> TestClient:
     return TestClient(app)
 
-
+#this connection rolls back every transaction after test
 @pytest.fixture
 def connection() -> YieldFixture[Connection]:
     with ENGINE.connect() as connection:
