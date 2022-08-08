@@ -23,6 +23,7 @@ class EnergizerResponse(BaseModel):
     wiki_page: Union[str, None]
     born_state: Union[str, None]
     born_town: Union[str, None]
-
+    occupation: Union[str, None]
+    
     class Config:
         orm_mode = True
