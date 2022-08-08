@@ -4,10 +4,11 @@ import pytest
 from sqlalchemy.engine import Connection
 from sqlalchemy.orm import Session
 
-# from starlette.testclient import TestClient
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 
-from api.api import session_maker_factory
+# from fastapi.testclient import TestClient
+
+from api.api import get_db
 from app import app
 from core.schemas import EnergizerRequest
 from database import ENGINE, session_maker
@@ -22,7 +23,7 @@ Factory = Callable[[], T]
 def api_client() -> TestClient:
     return TestClient(app)
 
-
+#this connection rolls back every transaction after test
 @pytest.fixture
 def connection() -> YieldFixture[Connection]:
     with ENGINE.connect() as connection:
@@ -54,7 +55,7 @@ def energizer_request() -> EnergizerRequest:
 
 @pytest.fixture
 def inject_session(session_factory: Factory[ContextManager[Session]]):
-    app.dependency_overrides[session_maker_factory] = lambda: session_factory
+    app.dependency_overrides[get_db] = lambda: session_factory
 
     yield session_factory
 

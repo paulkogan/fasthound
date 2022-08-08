@@ -22,13 +22,12 @@ def create_energizer(
     with session_factory() as session:
         session.add(energizer_submit)
         session.commit()
+        session.refresh(energizer_submit)
 
-    return payload
+    return energizer_submit
 
 
-def list_energizers(
-    session_factory: Callable[[], ContextManager[Session]]
-) -> list[EngSelect]:
+def list_energizers(session_factory) -> list[EngSelect]:
     with session_factory() as session:
         return list(session.execute(select(EngSelect)).scalars())
 
